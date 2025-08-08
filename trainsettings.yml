@@ -2,6 +2,7 @@ base_model: Qwen/Qwen3-1.7B-Base
 
 auto_resume_from_checkpoints: true
 
+# Bruges til streaming af datasæt
 # max_steps: 150000
 # pretraining_dataset:
 #   - name: dan_Latn
