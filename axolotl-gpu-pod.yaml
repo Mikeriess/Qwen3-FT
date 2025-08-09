@@ -5,9 +5,13 @@ metadata:
 spec:
   containers:
     - name: axolotl
-      image: nvcr.io/nvidia/pytorch:24.04-py3
+      image: axolotlai/axolotl:main-latest
+      # image: nvcr.io/nvidia/pytorch:24.04-py3
       command: ["/bin/bash", "-c", "--"]
       args: ["sleep infinity"]
+      env:
+        - name: NVIDIA_VISIBLE_DEVICES
+          value: "all"
       resources:
         limits:
           nvidia.com/gpu: 4

@@ -1,0 +1,2 @@
+oc cp trainsettings.yaml axolotl-gpu:/workspace/
+axolotl train trainsettings.yaml
