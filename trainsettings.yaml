@@ -2,19 +2,18 @@ base_model: Qwen/Qwen3-1.7B-Base
 
 auto_resume_from_checkpoints: true
 
-# Bruges til streaming af datasæt
-# max_steps: 150000
-# pretraining_dataset:
-#   - name: dan_Latn
-#     path: HuggingFaceFW/fineweb-2
-#     split: train
-#     type: pretrain
-#     skip: 2723499
-
-datasets:
+#Bruges til streaming af datasæt
+max_steps: 150000
+pretraining_dataset:
   - name: dan_Latn
     path: HuggingFaceFW/fineweb-2
-    type: completion
+    split: train
+    type: pretrain
+
+# datasets:
+#   - name: dan_Latn
+#     path: HuggingFaceFW/fineweb-2
+#     type: completion
 
 
 plugins:
@@ -28,7 +27,7 @@ liger_fused_linear_cross_entropy: true
 strict: false
 
 
-val_set_size: 0.001
+# val_set_size: 0.001
 output_dir: ./outputs/out
 dataset_prepared_path: last_run_prepared
 
@@ -54,14 +53,14 @@ learning_rate: 0.0002
 bf16: auto
 tf32: true
 
-gradient_checkpointing: offload
+gradient_checkpointing: false # Use fsdp_activation_checkpointing instead
 gradient_checkpointing_kwargs:
   use_reentrant: false
 logging_steps: 1
 flash_attention: true
 
 warmup_steps: 20
-evals_per_epoch: 50
+# evals_per_epoch: 50
 saves_per_epoch: 50
 weight_decay: 0.0
 special_tokens:
