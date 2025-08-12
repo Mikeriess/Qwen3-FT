@@ -39,8 +39,8 @@ wandb_watch:
 wandb_name: telenor_syv_qwen3-1.7b-fineweb-2-dk
 wandb_log_model:
 
-gradient_accumulation_steps: 4
-micro_batch_size: 8
+gradient_accumulation_steps: 1
+micro_batch_size: 1048 #256
 num_epochs: 1
 optimizer: adamw_torch_fused
 lr_scheduler: cosine
