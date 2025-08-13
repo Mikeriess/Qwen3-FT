@@ -14,11 +14,16 @@ pretraining_dataset:
     path: HuggingFaceFW/fineweb-2
     split: train
     type: pretrain
+test_datasets:
+    - name: dan_Latn
+      path: HuggingFaceFW/fineweb-2
+      split: test
+      type: completion
 
 sequence_len: 8192
 sample_packing: true
 eval_sample_packing: true
-val_set_size: 0.01
+#val_set_size: 0.01
 
 plugins:
   # axolotl.integrations.cut_cross_entropy.CutCrossEntropyPlugin
@@ -28,12 +33,7 @@ liger_rms_norm: true
 liger_glu_activation: true
 liger_fused_linear_cross_entropy: true
 
-# adapter: qlora
-# lora_model_dir:
-# lora_r: 32
-# lora_alpha: 64
-# lora_dropout: 0.05
-# lora_target_linear: true
+output_dir: /model
 
 wandb_project: qwen3-pretraining
 wandb_entity:
@@ -52,21 +52,19 @@ learning_rate: 0.0002
 bf16: auto
 tf32: true
 
-gradient_checkpointing: true
-gradient_checkpointing_kwargs:
-  use_reentrant: false
 resume_from_checkpoint:
 logging_steps: 1
 flash_attention: true
 
 warmup_ratio: 0.1
 evals_per_epoch: 4
-saves_per_epoch: 1
+saves_per_epoch: 4
 weight_decay: 0.0
 fsdp:
   - full_shard
   - auto_wrap
 fsdp_config:
+  activation_checkpointing: true
   fsdp_limit_all_gathers: true
   fsdp_sync_module_states: true
   fsdp_offload_params: true
@@ -78,4 +76,5 @@ fsdp_config:
   fsdp_sharding_strategy: FULL_SHARD
 special_tokens:
 
-# save_first_step: true  # uncomment this to validate checkpoint saving works with your config
+#validate checkpoint saving works with your config
+save_first_step: true  
